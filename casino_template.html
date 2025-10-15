@@ -75,6 +75,60 @@
             color: #7f8c8d;
             font-weight: bold;
         }
+        /* FAQ Accordion Styles */
+        .faq-item {
+            margin: 15px 0;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: box-shadow 0.3s;
+        }
+        .faq-item:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .faq-question {
+            background: #f8f9fa;
+            padding: 18px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: #2c3e50;
+            transition: background 0.3s;
+            user-select: none;
+        }
+        .faq-question:hover {
+            background: #e9ecef;
+        }
+        .faq-question.active {
+            background: #3498db;
+            color: white;
+        }
+        .faq-icon {
+            font-size: 20px;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+        .faq-question.active .faq-icon {
+            transform: rotate(180deg);
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+            padding: 0 20px;
+            background: white;
+        }
+        .faq-answer.active {
+            max-height: 1000px;
+            padding: 20px;
+        }
+        .faq-answer p {
+            margin: 0;
+            color: #555;
+            line-height: 1.8;
+        }
     </style>
 </head>
 <body>
@@ -263,21 +317,56 @@
 
             <h2>❓ FAQ</h2>
 
-            <div>
-                <h3><strong>Is {{CASINO_NAME}} safe and reliable?</strong></h3>
-                <p>{{FAQ_ANSWER_1}}</p>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Is {{CASINO_NAME}} safe and reliable?</span>
+                        <span class="faq-icon">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>{{FAQ_ANSWER_1}}</p>
+                    </div>
+                </div>
 
-                <h3>What payment methods can be used?</h3>
-                <p>{{FAQ_ANSWER_2}}</p>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What payment methods can be used?</span>
+                        <span class="faq-icon">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>{{FAQ_ANSWER_2}}</p>
+                    </div>
+                </div>
 
-                <h3><strong>What kind of bonuses does {{CASINO_NAME}} offer to new players?</strong></h3>
-                <p>{{FAQ_ANSWER_3}}</p>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What kind of bonuses does {{CASINO_NAME}} offer to new players?</span>
+                        <span class="faq-icon">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>{{FAQ_ANSWER_3}}</p>
+                    </div>
+                </div>
 
-                <h3><strong>Does {{CASINO_NAME}} have customer service?</strong></h3>
-                <p>{{FAQ_ANSWER_4}}</p>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Does {{CASINO_NAME}} have customer service?</span>
+                        <span class="faq-icon">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>{{FAQ_ANSWER_4}}</p>
+                    </div>
+                </div>
 
-                <h3><strong>Are winnings tax-free for players?</strong></h3>
-                <p>{{FAQ_ANSWER_5}}</p>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Are winnings tax-free for players?</span>
+                        <span class="faq-icon">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>{{FAQ_ANSWER_5}}</p>
+                    </div>
+                </div>
             </div>
         </article>
 
@@ -285,5 +374,31 @@
             <p>Copyright © 2025. All rights reserved.</p>
         </footer>
     </div>
+
+    <script>
+        // FAQ Accordion functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', function() {
+                    // Toggle active class on question
+                    this.classList.toggle('active');
+                    
+                    // Toggle active class on answer
+                    const answer = this.nextElementSibling;
+                    answer.classList.toggle('active');
+                    
+                    // Optional: Close other FAQs when opening one (uncomment if desired)
+                    // faqQuestions.forEach(otherQuestion => {
+                    //     if (otherQuestion !== this) {
+                    //         otherQuestion.classList.remove('active');
+                    //         otherQuestion.nextElementSibling.classList.remove('active');
+                    //     }
+                    // });
+                });
+            });
+        });
+    </script>
 </body>
 </html>
